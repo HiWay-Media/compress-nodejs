@@ -1,0 +1,35 @@
+{
+    "name": "compress-nodejs",
+    "private": true,
+    "version": "0.1.0",
+    "description": "",
+    "main": "dist/index.js",
+    "browser": "dist/index.js",
+    "module": "dist/index.esm.js",
+    "files": [
+      "dist/**/*"
+    ],
+    "scripts": {
+      "build": "rimraf dist && rollup --config --bundleConfigAsCjs",
+      "tsc": "tsc",
+      "prepublishOnly": "npm run build",
+      "prepare": "npm run build"
+    },
+    "peerDependencies": {
+      "react": "^18.2.0",
+      "react-dom": "^18.2.0",
+      "moment": "^2.29.4",
+      "next": ">=13.0.0"
+    },
+    "devDependencies": {
+      "@rollup/plugin-node-resolve": "^15.0.1",
+      "@types/react": "18.0.9",
+      "rollup": "^3.2.5",
+      "babel-loader": "^8.2.2",
+      "rimraf": "^3.0.2",
+      "rollup-plugin-peer-deps-external": "^2.2.4",
+      "rollup-plugin-typescript2": "^0.31.1",
+      "tslib": "^2.4.1"
+    }
+  }
+  

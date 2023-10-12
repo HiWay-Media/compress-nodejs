@@ -18,7 +18,7 @@ export class TangramClient {
      * @param {string} apikey 
      * @param {string} customer_name 
      */
-    constructor(apikey, customer_name) {
+    constructor(apikey : string , customer_name : string) {
       this.api_key = apikey;
       this.customer_name = customer_name;
       // understand if we need to saved globally all categories in constructor

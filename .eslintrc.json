@@ -1,0 +1,120 @@
+{
+    "extends": [
+      "airbnb-base",
+      "eslint:recommended",
+      "plugin:promise/recommended",
+      "standard",
+      "standard-jsx",
+      "plugin:react/recommended",
+      "plugin:@typescript-eslint/recommended",
+      "plugin:react/jsx-runtime"
+    ],
+    "parser": "@typescript-eslint/parser",
+    "plugins": [
+      "@typescript-eslint",
+      "react",
+      "jsx-a11y",
+      "react-hooks"
+    ],
+    "parserOptions": {
+      "project": "./tsconfig.json",
+      "ecmaVersion": 2018,
+      "ecmaFeatures": {
+        "impliedStrict": true,
+        "jsx": true
+      }
+    },
+    "env": {
+      "browser": true,
+      "jest": true,
+      "es6": true
+    },
+    "rules": {
+      "no-console": "off",
+      "no-multi-str": "off",
+      "camelcase": "warn",
+      "complexity": [
+        "error",
+        {
+          "max": 8
+        }
+      ],
+      "consistent-return": "off",
+      "no-plusplus": "off",
+      "no-param-reassign": "off",
+      "import/no-duplicates": "off",
+      "import/no-unresolved": "off",
+      "import/extensions": "off",
+      "import/no-default-export": "off",
+      "import/no-webpack-loader-syntax": "off",
+      "import/prefer-default-export": "off",
+      "import/no-extraneous-dependencies": "off",
+      "import/named": "off",
+      "import/no-self-import": "off",
+      "import/no-cycle": "off",
+      "import/no-useless-path-segments": "off",
+      "import/no-relative-packages": "off",
+      "import/no-named-as-default": "off",
+      "import/no-named-as-default-member": "off",
+      "import/order": "error",
+      "indent": "error",
+      "prefer-promise-reject-errors": "error",
+      "prefer-const": "error",
+      "no-underscore-dangle": "off",
+      "react/no-deprecated": "error",
+      "object-curly-spacing": [
+        "error",
+        "always"
+      ],
+      "react-hooks/rules-of-hooks": "error",
+      "react-hooks/exhaustive-deps": "warn",
+      "react/forbid-foreign-prop-types": "error",
+      "react/jsx-curly-brace-presence": [
+        "error",
+        {
+          "props": "never",
+          "children": "never"
+        }
+      ],
+      "promise/catch-or-return": "warn",
+      "promise/always-return": "warn",
+      "promise/no-return-wrap": "warn",
+      "@typescript-eslint/no-explicit-any": "off",
+      "@typescript-eslint/explicit-function-return-type": "off",
+      "@typescript-eslint/member-delimiter-style": [
+        "error",
+        {
+          "multiline": {
+            "delimiter": "none",
+            "requireLast": false
+          },
+          "singleline": {
+            "delimiter": "comma",
+            "requireLast": false
+          }
+        }
+      ]
+    },
+    "settings": {
+      "react": {
+        "version": "detect"
+      },
+      "import/resolver": {
+        "alias": {
+          "map": [
+            [
+              "@app",
+              "./src"
+            ]
+          ],
+          "extensions": [
+            ".ts",
+            ".tsx",
+            ".js",
+            ".jsx"
+          ]
+        }
+      }
+    }
+  }
+  

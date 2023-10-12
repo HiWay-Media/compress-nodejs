@@ -22,5 +22,8 @@
   "bugs": {
     "url": "https://github.com/HiWay-Media/compress-nodejs/issues"
   },
-  "homepage": "https://github.com/HiWay-Media/compress-nodejs#readme"
+  "homepage": "https://github.com/HiWay-Media/compress-nodejs#readme",
+  "dependencies": {
+    "compress-nodejs": "^0.1.0"
+  }
 }

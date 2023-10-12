@@ -8,9 +8,12 @@
  * Copyright 2023 - 2023 © 
  * 
  */
-import { TangramClient } from "compress-nodejs";
+//import { TangramClient } from "compress-nodejs";
+const compress = require('compress-nodejs');
 
-let tngrm = new TangramClient(
+let tngrm = new compress.TangramClient(
     "api_key",
     "customer"
 );
+
+console.log(`tngrmClient ${tngrm}`);

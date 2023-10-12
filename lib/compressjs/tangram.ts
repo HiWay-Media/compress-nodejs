@@ -8,6 +8,9 @@
  * Copyright 2023 - 2023 © 
  * 
  */
+
+import { TNGRM_BASE_URL, S3_SPACE, GET_CATEGORIES, PRESIGNED_URL_S3, ADD_VIDEO_THUMB, CREATE_UPLOAD, GET_RUNNING_SINGLE_INSTANCE   } from "./constants";
+
 //
 export class TangramClient {
     /**

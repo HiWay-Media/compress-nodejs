@@ -1,5 +1,5 @@
-/**
- * 
+/*
+ *
  * Author: Allan Nava (allan.nava@hiway.media)
  * -----
  * Last Modified: 
@@ -7,7 +7,4 @@
  * -----
  * Copyright 2023 - 2023 © 
  * 
- * 
  */
-export * from "./compressjs";
-//

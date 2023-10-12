@@ -211,7 +211,8 @@ export class TangramClient {
      */
     async upload_no_encoding(destination_folder, file) {
       //file.name = file.name.replaceAll(" ", "_");
-      //let fileName = file.name.replaceAll(" ", "_");
+      let fileName = file.name
+      //.replaceAll(" ", "_");
       console.log(`uploading ${fileName} to minio S3...`);
       //upload to minio and create_upload on comress for encoding
       return await this.upload_s3(destination_folder, file, fileName)
@@ -247,7 +248,8 @@ export class TangramClient {
       category_id
     ) {
       //get categories
-      //let fileName = file.name.replaceAll(" ", "_");
+      let fileName = file.name
+      //.replaceAll(" ", "_");
       let file_dest = destination_folder + "/" + fileName;
       // wait until the file is uploaded
       console.log(`uploading ${fileName} to minio S3...`);

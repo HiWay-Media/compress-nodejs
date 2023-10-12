@@ -318,7 +318,7 @@ export class TangramClient {
                 category: parseInt(category_id),
                 location: location_place,
                 filename: path,
-                size: parseInt(file.size),
+                size: 0,
                 reporter_email: `${this.customer_name}@tngrm.io`,
             }),
         }).then((res) => {

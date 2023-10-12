@@ -8,7 +8,6 @@ The Compress NodeJS library provides access to the Compress API for encoding vid
 ## Table of Contents
 - [Installation](#installation)
 - [Usage](#usage)
-- [Supported Compression Algorithms](#supported-compression-algorithms)
 - [Contributing](#contributing)
 - [License](#license)
 
@@ -24,4 +23,14 @@ yarn add compress-nodejs
 
 ## Usage
 
-Here's a basic example of how to use Compress Node.js to compress and decompress data:
+Here's a basic example of how to use Compress Node.js:
+
+
+
+## Contributing
+We welcome contributions from the open-source community. To contribute to this project, please follow our Contribution Guidelines.
+
+## License
+This project is licensed under the MIT License. You are free to use, modify, and distribute it as per the terms of the license.
+
+For any questions or issues, please create an issue on GitHub.

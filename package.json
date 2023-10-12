@@ -1,6 +1,6 @@
 {
     "name": "compress-nodejs",
-    "private": true,
+    "private": false,
     "version": "0.1.0",
     "description": "",
     "main": "dist/index.js",

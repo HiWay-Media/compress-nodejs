@@ -10,8 +10,9 @@
  */
 
 import { TNGRM_BASE_URL, S3_SPACE, GET_CATEGORIES, PRESIGNED_URL_S3, ADD_VIDEO_THUMB, CREATE_UPLOAD, GET_RUNNING_SINGLE_INSTANCE, GET_RESTREAMERS, GET_RUNNING_INSTANCES, SCALE_RESTREAMER, GET_UPLOADS, GET_SINGLE_UPLOAD, SET_PUBLISHED_UPLOAD } from "./constants";
-import  { Evaporate } from 'EvaporateJS';
-import { Crypto } from 'crypto';
+// Import the EvaporateJS library
+import Evaporate from 'evaporate';
+import Crypto from 'crypto';
 
 //
 export class TangramClient {

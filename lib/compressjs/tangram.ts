@@ -13,7 +13,6 @@ import { TNGRM_BASE_URL, S3_SPACE, GET_CATEGORIES, PRESIGNED_URL_S3, ADD_VIDEO_T
 // Import the EvaporateJS library
 import Evaporate from 'evaporate';
 //
-//
 export class TangramClient {
     //
     api_key: string;

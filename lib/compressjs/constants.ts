@@ -23,6 +23,7 @@ export const CREATE_UPLOAD                  = `${GET_UPLOADS}/create`;
 export const PRESIGNED_URL_S3               = `${GET_UPLOADS}/presignedUrl`;
 export const S3_SPACE                       = `${GET_UPLOADS}/s3_space`;
 export const ADD_VIDEO_THUMB                = `${GET_UPLOADS}/add_thumb`;
+export const SIGN_S3_URL                    = `${GET_UPLOADS}/sign_s3_url`;
 export const SCALE_RESTREAMER               = `${GET_RESTREAMERS}/scale_instance`;
 export const PERMITTED_FILE_EXTENSIONS = [
   ".mov",

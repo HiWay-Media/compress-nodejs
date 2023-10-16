@@ -1,6 +1,8 @@
 # Compress nodejs
 ![GitHub](https://img.shields.io/github/license/HiWay-Media/compress-nodejs)
 ![GitHub last commit](https://img.shields.io/github/last-commit/HiWay-Media/compress-nodejs)
+[![Node.js CI](https://github.com/HiWay-Media/compress-nodejs/actions/workflows/npm.yml/badge.svg)](https://github.com/HiWay-Media/compress-nodejs/actions/workflows/npm.yml)
+[![Publish Package to npmjs](https://github.com/HiWay-Media/compress-nodejs/actions/workflows/npm-package.yml/badge.svg)](https://github.com/HiWay-Media/compress-nodejs/actions/workflows/npm-package.yml)
 
 The Compress NodeJS library provides access to the Compress API for encoding videos, restreamers
 

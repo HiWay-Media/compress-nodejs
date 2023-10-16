@@ -41,8 +41,8 @@ export class TangramClient {
         progressIntervalMS: 1000, //interval every 1 sec update progress callback
         sendCanonicalRequestToSignerUrl: true, // needed for minio s3
         computeContentMd5: true,
-        cryptoMd5Method: function (data) { return AWS.util.crypto.md5(data, 'base64'); },
-        cryptoHexEncodedHash256: function (data) { return AWS.util.crypto.sha256(data, 'hex'); }
+        cryptoMd5Method: function (data) { return crypto.md5(data, 'base64'); },
+        cryptoHexEncodedHash256: function (data) { return crypto.sha256(data, 'hex'); }
       }
     }
     //

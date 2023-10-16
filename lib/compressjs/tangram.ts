@@ -19,7 +19,7 @@ export class TangramClient {
     //
     api_key: string;
     customer_name: string;
-
+    evaporate: Evaporate;
     /**
      * 
      * @param {string} apikey 

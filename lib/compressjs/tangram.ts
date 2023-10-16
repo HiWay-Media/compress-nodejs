@@ -447,7 +447,7 @@ export class TangramClient {
         body: JSON.stringify({
           api_key: this.api_key,
           client_id: `${this.customer_name}_client`,
-          restreamer_name: restreamer_name,
+          instance_name: restreamer_name,
           scale: parseInt(scale_value)
         }),
       })

@@ -18,6 +18,7 @@ export const GET_RUNNING_INSTANCES          = `${GET_RESTREAMERS}/running_instan
 export const GET_RUNNING_SINGLE_INSTANCE    = `${GET_RESTREAMERS}/single_instance`;
 export const GET_UPLOADS                    = "/external/upload";
 export const GET_SINGLE_UPLOAD              = `${GET_UPLOADS}/jobid`;
+export const GET_JOBID_PROGRESS             = `${GET_UPLOADS}/job_progress/jobid`;
 export const SET_PUBLISHED_UPLOAD           = `${GET_UPLOADS}/set_published`;
 export const CREATE_UPLOAD                  = `${GET_UPLOADS}/create`;
 export const PRESIGNED_URL_S3               = `${GET_UPLOADS}/presignedUrl`;

@@ -9,7 +9,7 @@
  * 
  */
 
-import { TNGRM_BASE_URL, S3_SPACE, GET_CATEGORIES, PRESIGNED_URL_S3, ADD_VIDEO_THUMB, CREATE_UPLOAD, GET_RUNNING_SINGLE_INSTANCE, GET_RESTREAMERS, GET_RUNNING_INSTANCES, SCALE_RESTREAMER, GET_UPLOADS, GET_SINGLE_UPLOAD, SET_PUBLISHED_UPLOAD, SIGN_S3_URL } from "./constants";
+import { TNGRM_BASE_URL, S3_SPACE, GET_CATEGORIES, PRESIGNED_URL_S3, ADD_VIDEO_THUMB, CREATE_UPLOAD, GET_RUNNING_SINGLE_INSTANCE, GET_RESTREAMERS, GET_RUNNING_INSTANCES, SCALE_RESTREAMER, GET_UPLOADS, GET_SINGLE_UPLOAD, SET_PUBLISHED_UPLOAD, SIGN_S3_URL, GET_JOBID_PROGRESS } from "./constants";
 // Import the EvaporateJS library
 //import  * from 'evaporate';
 //
@@ -350,7 +350,32 @@ export class TangramClient {
             });
         //
     }
-  
+    /**
+     * 
+     * @param {number} job_id 
+     * @returns progressStateResponse 
+     */
+    async get_jobid_progress(
+      job_id,
+    ) {
+      return await fetch(TNGRM_BASE_URL + GET_JOBID_PROGRESS, {
+          method: "POST",
+          headers: {
+              "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+              api_key: this.api_key,
+              job_id: job_id,
+          }),
+      }).then((res) => {
+            if (!res.ok) {
+                throw new Error(
+                    `something went wrong during create upload, ${res.status} ${res.statusText}`
+                );
+            }
+            return res.json();
+        });
+    }
     /**
      * 
      * @param {number} start_from 

@@ -274,7 +274,8 @@ export class TangramClient {
       console.log(`uploading ${fileName} to minio S3...`);
       let upload = await this.upload_s3(destination_folder, file, fileName);
       console.log("upload ", upload);
-      return await fetch(TNGRM_BASE_URL + CREATE_UPLOAD, {
+      return await this.encode(file_dest, file, title, tags, location_place, category_id);
+      /*return await fetch(TNGRM_BASE_URL + CREATE_UPLOAD, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -297,7 +298,7 @@ export class TangramClient {
             );
           }
           return res.json();
-        });
+        });*/
       //
     }
   
@@ -308,7 +309,7 @@ export class TangramClient {
        *
        * remember to specify the folder (usually upload)
        *
-       * @param {string} destination_folder
+       * @param {string} uploaded_filename
        * @param {file} file
        * @param {string} title
        * @param {string} tags
@@ -316,7 +317,8 @@ export class TangramClient {
        * @param {number} category_id
        */
      async encode(
-        path,
+        uploaded_filename,
+        file,
         title,
         tags,
         location_place,
@@ -336,8 +338,8 @@ export class TangramClient {
                 tags: tags,
                 category: parseInt(category_id),
                 location: location_place,
-                filename: path,
-                size: 0,
+                filename: uploaded_filename,
+                size: parseInt(file.size),
                 reporter_email: `${this.customer_name}@tngrm.io`,
             }),
         }).then((res) => {

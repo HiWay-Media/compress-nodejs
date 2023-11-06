@@ -17,6 +17,7 @@ export class TangramClient {
     //
     api_key: string;
     customer_name: string;
+    client_id: string;
     //evaporate: Evaporate;
     configEvaporate: any;
     /**
@@ -25,8 +26,10 @@ export class TangramClient {
      * @param {string} customer_name 
      */
     constructor(apikey : string , customer_name : string) {
-      this.api_key = apikey;
-      this.customer_name = customer_name;
+      //
+      this.api_key        = apikey;
+      this.customer_name  = customer_name;
+      this.client_id      = `${this.customer_name}_client`,
       // understand if we need to saved globally all categories in constructor
       this.configEvaporate = {
         signerUrl: `${TNGRM_BASE_URL}${SIGN_S3_URL}`,
@@ -63,7 +66,8 @@ export class TangramClient {
           },
           body: JSON.stringify({
             api_key: this.api_key,
-            client_id: `${this.customer_name}_client`,
+            client_id: this.client_id,
+            //client_id: `${this.customer_name}_client`,
           }),
         })
         .then((res) => {
@@ -90,7 +94,7 @@ export class TangramClient {
         },
         body: JSON.stringify({
           api_key: this.api_key,
-          client_id: `${this.customer_name}_client`,
+          client_id: this.client_id,
         }),
       })
       .then((res) => {
@@ -117,7 +121,7 @@ export class TangramClient {
         },
         body: JSON.stringify({
           api_key: this.api_key,
-          client_id: `${this.customer_name}_client`,
+          client_id: this.client_id,
           category_name: category_name
         }),
       })
@@ -203,7 +207,7 @@ export class TangramClient {
         },*/
         body: JSON.stringify({
           api_key: this.api_key,
-          client_id: `${this.customer_name}_client`
+          client_id: this.client_id,
         }),
       })
       .then((res) => {
@@ -392,7 +396,7 @@ export class TangramClient {
         },
         body: JSON.stringify({
           api_key: this.api_key,
-          client_id: `${this.customer_name}_client`,
+          client_id: this.client_id,
           start_from: parseInt(start_from),
           amount: parseInt(amount)
         }),
@@ -419,7 +423,7 @@ export class TangramClient {
         },
         body: JSON.stringify({
           api_key: this.api_key,
-          client_id: `${this.customer_name}_client`,
+          client_id: this.client_id,
           instance_name: instance_name,
         }),
       })
@@ -445,7 +449,7 @@ export class TangramClient {
         },
         body: JSON.stringify({
           api_key: this.api_key,
-          client_id: `${this.customer_name}_client`
+          client_id: this.client_id
         }),
       })
       .then((res) => {
@@ -473,7 +477,7 @@ export class TangramClient {
         },
         body: JSON.stringify({
           api_key: this.api_key,
-          client_id: `${this.customer_name}_client`,
+          client_id: this.client_id,
           instance_name: restreamer_name,
           scale: parseInt(scale_value)
         }),
@@ -513,7 +517,7 @@ export class TangramClient {
         },
         body: JSON.stringify({
           api_key: this.api_key,
-          client_id: `${this.customer_name}_client`,
+          client_id: this.client_id,
           start_from: parseInt(start_from),
           amount: parseInt(amount),
           q: title,

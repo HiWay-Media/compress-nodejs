@@ -9,11 +9,11 @@
  * 
  */
 //import { TangramClient } from "compress-nodejs";
-const compress = require('compress-nodejs');
-
+const compress  = require('compress-nodejs');
+//
 let tngrm = new compress.TangramClient(
     "api_key",
     "customer"
 );
-
+//
 console.log(`tngrmClient ${tngrm}`);

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Compress</title>
+
+    <script type="text/javascript" src="spark-md5.min.js"></script>
+    <script type="text/javascript" src="sha256.js"></script>
+    <script type="text/javascript" src="evaporate.js"></script>
+    <script type="text/javascript" src="tangram.js"></script>
+
+</head>
+
+<body>
+    <h2>Upload test</h2>
+
+    <div id="connect_section">
+        <label>API KEY</label>
+        <input type="text" id="api_key" value="" name="api_key" form-init="true">
+
+        <label>CLIENT</label>
+        <input type="text" id="customer_name" value="" name="customer_name" form-init="true">
+
+        <button id="connect">Connect</button>
+    </div>
+
+    <div id="upload_section" style="display: none;">
+
+        <label>Title</label>
+        <input type="text" id="title" value="titolo" name="title" form-init="true">
+
+
+        <label>Category</label>
+        <select id="categories">
+            
+        </select>
+        <br />
+        <br />
+        <label for="file">Choose a file:</label>
+        <input type="file" id="file_to_upload" name="file">
+        <br />
+        <br />
+        <button id="upload">Upload</button>
+
+    </div>
+
+    <br />
+    <br />
+
+    <div id="progress" style="position: relative; width: 50%; height: 20px; background-color: rgba(255, 0, 0, 0.477); display: none;">
+        <div id="progress_bar" style="position: absolute; width: 0%; height: 100%; background-color: red;"></div>
+    </div>
+
+    <!--  -->
+</body>
+
+<script type="text/javascript" src="example.js"></script>
+
+</html>

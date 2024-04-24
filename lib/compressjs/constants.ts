@@ -1,15 +1,16 @@
 /*
  *
- * Author: Allan Nava (allan.nava@hiway.media)
+ * Author: Allan Nava   (allan.nava@hiway.media)
+ * Author: Daniel Botta (daniel.botta@hiway.media)
  * -----
  * Last Modified: 
  * Modified By: Allan Nava (allan.nava@hiway.media>)
  * -----
- * Copyright 2023 - 2023 © 
+ * Copyright 2023 - 2024 © 
  * 
  */
 
-export const TNGRM_BASE_URL                 = "https://api.tngrm.io/api/v3.0";
+export const TNGRM_BASE_URL                 = "https://api-compress.hiway.media/api/v4.0";
 export const AUTH_LOGIN                     = "/external/auth/login";
 export const GET_CATEGORIES                 = "/external/upload/categories";
 export const CREATE_CATEGORY                = `${GET_CATEGORIES}/create`;

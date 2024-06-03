@@ -496,17 +496,74 @@ export class TangramClient {
       // .catch((err) => {
       //   console.log(err);
       // });
-    }
-  
+    }  
 
     /**
-     * scale the restreamer to turn it on / off
+     * RESTREAMER_HLS_START
      * accept value 0 or 1
-     * @param {string} restreamer_name 
-     * @param {number} scale_value 
+	   * ApiKey   string `json:"api_key" `
+	   * ClientId string `json:"client_id" `
+	   * InstanceName   string `json:"instance_name" `
+	   * StreamProtocol string `json:"stream_protocol" `
      * @returns 
      */
+    async restreamer_hls_start(instance_name, ) {
+      return await fetch(TNGRM_BASE_URL + RESTREAMER_HLS_START, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          api_key: this.api_key,
+          client_id: this.client_id,
+          instance_name: instance_name,
+          stream_protocol: stream_protocol
 
+        }),
+      })
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error(
+            `something went wrong during restreamer_hls_start ${instance_name}, ${res.status} ${res.statusText}`
+          );
+        }
+        return res.json();
+      })
+    }
+
+
+    /**
+     * RESTREAMER_HLS_STOP
+     * accept value 0 or 1
+	   * ApiKey   string `json:"api_key" `
+	   * ClientId string `json:"client_id" `
+	   * InstanceName   string `json:"instance_name" `
+	   * StreamProtocol string `json:"stream_protocol" `
+     * @returns 
+     */
+    async restreamer_hls_stop(instance_name, ) {
+      return await fetch(TNGRM_BASE_URL + RESTREAMER_HLS_STOP, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          api_key: this.api_key,
+          client_id: this.client_id,
+          instance_name: instance_name,
+          stream_protocol: stream_protocol
+
+        }),
+      })
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error(
+            `something went wrong during restreamer_hls_start ${instance_name}, ${res.status} ${res.statusText}`
+          );
+        }
+        return res.json();
+      })
+    }
 
     /**
      * all argument are optionals except for start_from and amount,

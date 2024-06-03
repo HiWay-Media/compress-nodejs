@@ -470,7 +470,7 @@ export class TangramClient {
      * @returns 
      */
     async bulk_events_create(instances) {
-      return await fetch(TNGRM_BASE_URL + SCALE_RESTREAMER, {
+      return await fetch(TNGRM_BASE_URL + BULK_EVENTS_CREATE, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -534,7 +534,6 @@ export class TangramClient {
 
     /**
      * RESTREAMER_HLS_STOP
-     * accept value 0 or 1
 	   * ApiKey   string `json:"api_key" `
 	   * ClientId string `json:"client_id" `
 	   * InstanceName   string `json:"instance_name" `
@@ -564,6 +563,146 @@ export class TangramClient {
         return res.json();
       })
     }
+
+    /** TODO:
+     * RESTREAMER_PUSH_START
+	   * ApiKey   string `json:"api_key" `
+	   * ClientId string `json:"client_id" `
+	   * InstanceName   string `json:"instance_name" `
+	   * ExternalServers []struct {
+	   * 	ExternalServer string `json:"external_server" `
+	   * 	IngestProtocol string `json:"ingest_protocol" `
+	   * 	AudioChannel   string `json:"audio_channel" `
+	   * } `json:"external_servers"`
+     * @returns 
+     */
+    async restreamer_push_start(instance_name, external_servers) {
+      return await fetch(TNGRM_BASE_URL + RESTREAMER_PUSH_START, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          api_key: this.api_key,
+          client_id: this.client_id,
+          instance_name: instance_name,
+          external_servers: external_servers
+
+        }),
+      })
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error(
+            `something went wrong during restreamer_push_start ${instance_name}, ${res.status} ${res.statusText}`
+          );
+        }
+        return res.json();
+      })
+    }
+
+    /** TODO:
+     * RESTREAMER_PUSH_STOP
+	   * ApiKey   string `json:"api_key" `
+	   * ClientId string `json:"client_id" `
+	   * InstanceName   string `json:"instance_name" `
+	   * ExternalServers []struct {
+	   * 	ExternalServer string `json:"external_server" `
+	   * 	IngestProtocol string `json:"ingest_protocol" `
+	   * 	AudioChannel   string `json:"audio_channel" `
+	   * } `json:"external_servers"`
+     * @returns 
+     */
+    async restreamer_push_stop(instance_name, external_servers) {
+      return await fetch(TNGRM_BASE_URL + RESTREAMER_PUSH_STOP, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          api_key: this.api_key,
+          client_id: this.client_id,
+          instance_name: instance_name,
+          external_servers: external_servers
+
+        }),
+      })
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error(
+            `something went wrong during restreamer_push_start ${instance_name}, ${res.status} ${res.statusText}`
+          );
+        }
+        return res.json();
+      })
+    }
+
+    /** TODO: need to understand if is used or no 
+     * RESTREAMER_PULL_START
+	   * ApiKey   string `json:"api_key" `
+	   * ClientId string `json:"client_id" `
+	   * InstanceName   string `json:"instance_name" `
+	   * ExternalServers []struct {
+	   * 	ProcessID string `json:"process_id" `
+	   * } `json:"external_servers"`
+     * @returns 
+     */
+    async restreamer_pull_start(instance_name, external_servers) {
+      return await fetch(TNGRM_BASE_URL + RESTREAMER_PULL_START, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          api_key: this.api_key,
+          client_id: this.client_id,
+          instance_name: instance_name,
+          external_servers: external_servers
+        }),
+      })
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error(
+            `something went wrong during restreamer_push_start ${instance_name}, ${res.status} ${res.statusText}`
+          );
+        }
+        return res.json();
+      })
+    }
+
+
+    /** TODO: need to understand if is used or no 
+     * RESTREAMER_PULL_STOP
+	   * ApiKey   string `json:"api_key" `
+	   * ClientId string `json:"client_id" `
+	   * InstanceName   string `json:"instance_name" `
+	   * ExternalServers []struct {
+	   * 	ProcessID string `json:"process_id" `
+	   * } `json:"external_servers"`
+     * @returns 
+     */
+    async restreamer_pull_stop(instance_name, external_servers) {
+      return await fetch(TNGRM_BASE_URL + RESTREAMER_PULL_STOP, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          api_key: this.api_key,
+          client_id: this.client_id,
+          instance_name: instance_name,
+          external_servers: external_servers
+        }),
+      })
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error(
+            `something went wrong during restreamer_push_start ${instance_name}, ${res.status} ${res.statusText}`
+          );
+        }
+        return res.json();
+      })
+    }
+
 
     /**
      * all argument are optionals except for start_from and amount,

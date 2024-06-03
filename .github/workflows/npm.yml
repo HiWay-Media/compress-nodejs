@@ -3,13 +3,23 @@ on: [push]
 jobs:
   build:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: ['14.x','16.x', '18.x', '20.x']  # Specify Node.js versions to test against
     steps:
       - uses: actions/checkout@v4
-      - name: Use Node.js
+      - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '20.x'
+          node-version: ${{ matrix.node-version }}
       - run: npm i
       - run: npm run prepare
       - run: npm run build
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: build-artifacts
+          path: |
+            dist/**  # Adjust according to your build output directory
+            !node_modules/**
       #- run: npm test

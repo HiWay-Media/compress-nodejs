@@ -572,7 +572,7 @@ export class TangramClient {
 	   * 	ExternalServer string `json:"external_server" `
 	   * 	IngestProtocol string `json:"ingest_protocol" `
 	   * 	AudioChannel   string `json:"audio_channel" `
-	   * } `json:"external_servers"`
+	   * } `json:"external_servers"` --> [{ "audio_channel": x, "ingest_protocol": x, ,"external_server": x}, { "audio_channel": y, "ingest_protocol": x, ,"external_server": x}]
      * @returns 
      */
     async restreamer_push_start(instance_name, external_servers) {
@@ -608,7 +608,7 @@ export class TangramClient {
 	   * 	ExternalServer string `json:"external_server" `
 	   * 	IngestProtocol string `json:"ingest_protocol" `
 	   * 	AudioChannel   string `json:"audio_channel" `
-	   * } `json:"external_servers"`
+	   * } `json:"external_servers"` --> [{ "audio_channel": x, "ingest_protocol": x, ,"external_server": x}, { "audio_channel": y, "ingest_protocol": x, ,"external_server": x}]
      * @returns 
      */
     async restreamer_push_stop(instance_name, external_servers) {
@@ -642,7 +642,7 @@ export class TangramClient {
 	   * InstanceName   string `json:"instance_name" `
 	   * ExternalServers []struct {
 	   * 	ProcessID string `json:"process_id" `
-	   * } `json:"external_servers"`
+	   * } `json:"external_servers"` --> [{ "process_id": x, }, { "process_id": y, }]
      * @returns 
      */
     async restreamer_pull_start(instance_name, external_servers) {
@@ -676,7 +676,7 @@ export class TangramClient {
 	   * InstanceName   string `json:"instance_name" `
 	   * ExternalServers []struct {
 	   * 	ProcessID string `json:"process_id" `
-	   * } `json:"external_servers"`
+	   * } `json:"external_servers"` --> [{ "process_id": x, }, { "process_id": y, }]
      * @returns 
      */
     async restreamer_pull_stop(instance_name, external_servers) {

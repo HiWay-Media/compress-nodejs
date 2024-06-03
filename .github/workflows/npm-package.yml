@@ -18,15 +18,19 @@ jobs:
       - run: npm run prepare
       - run: npm run build
       #
-      - name: Upload Release Asset
-        uses: actions/upload-release-asset@v1
+      - name: Upload artifact for deployment job
+        uses: actions/upload-artifact@v2
         with:
-          upload_url: ${{ github.event.release.upload_url }}
-          asset_path: dist/  # Adjust according to your build output directory
-          asset_name: dist
-          asset_content_type: application/zip
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          name: compress-nodejs
+          path: ./dist
+      #- name: Upload Release Asset
+      #  uses: actions/upload-release-asset@v1
+      #  with:
+      #    upload_url: ${{ github.event.release.upload_url }}
+      #    asset_path: ./dist/  # Adjust according to your build output directory
+      #    asset_content_type: 
+      #  env:
+      #    GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       #
       - run: npm publish
         env:

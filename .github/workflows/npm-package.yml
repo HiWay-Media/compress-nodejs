@@ -7,10 +7,12 @@ on:
 jobs:
   build:
     permissions:
-      contents: read
+      contents: write
       packages: write
       repository-projects: write
-
+      actions: write
+      deployments: write
+      checks: write
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4

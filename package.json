@@ -1,7 +1,7 @@
 {
     "name": "compress-nodejs",
     "private": false,
-    "version": "0.4.0",
+    "version": "0.4.1",
     "description": "The Compress NodeJS library provides access to the Compress API for encoding videos, restreamers",
     "main": "dist/index.js",
     "browser": "dist/index.js",

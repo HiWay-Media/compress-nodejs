@@ -73,14 +73,14 @@ uploadButton.addEventListener("click", (event) => {
   }
 
   const path = "upload/"+fileInput.files[0].name;
-
+  // renderlo dinamico @toninospiderman123
   const config = {
     signerUrl: "https://api.tngrm.io/api/v3.0/external/upload/sign_s3_url",
     logging: true,
     signHeaders: { tangram_key: apiKeyInput.value },
-    aws_url: `https://s3-gut.tngrm.io`,
-    aws_key: `gut`,
-    bucket: `gut`,
+    aws_url: ``,
+    aws_key: ``,
+    bucket: ``,
     cloudfront: false,
     progressIntervalMS: 1000, //interval every 1 sec update progress callback
     sendCanonicalRequestToSignerUrl: true, // needed for minio s3

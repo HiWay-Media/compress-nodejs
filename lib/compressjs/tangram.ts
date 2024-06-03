@@ -9,7 +9,7 @@
  * 
  */
 
-import { TNGRM_BASE_URL, S3_SPACE, GET_CATEGORIES, PRESIGNED_URL_S3, ADD_VIDEO_THUMB, CREATE_UPLOAD, GET_RUNNING_SINGLE_INSTANCE, GET_RESTREAMERS, GET_RUNNING_INSTANCES, SCALE_RESTREAMER, GET_UPLOADS, GET_SINGLE_UPLOAD, SET_PUBLISHED_UPLOAD, SIGN_S3_URL, GET_JOBID_PROGRESS, CREDENTIALS } from "./constants";
+import { TNGRM_BASE_URL, S3_SPACE, GET_CATEGORIES, PRESIGNED_URL_S3, ADD_VIDEO_THUMB, CREATE_UPLOAD, GET_RUNNING_SINGLE_INSTANCE, GET_RESTREAMERS, GET_RUNNING_INSTANCES, SCALE_RESTREAMER, GET_UPLOADS, GET_SINGLE_UPLOAD, SET_PUBLISHED_UPLOAD, SIGN_S3_URL, GET_JOBID_PROGRESS, CREDENTIALS, BULK_EVENTS_CREATE, RESTREAMER_HLS_START, RESTREAMER_HLS_STOP, RESTREAMER_PUSH_START, RESTREAMER_PUSH_STOP, RESTREAMER_PULL_START, RESTREAMER_PULL_STOP   } from "./constants";
 // Import the EvaporateJS library
 //import  * from 'evaporate';
 //
@@ -463,13 +463,13 @@ export class TangramClient {
     }
   
     /**
-     * scale the restreamer to turn it on / off
+     * BULK_EVENTS_CREATE
      * accept value 0 or 1
-     * @param {string} restreamer_name 
-     * @param {number} scale_value 
+	   * Apikey    string                          `json:"api_key" validate:"nonzero,min=1"`
+	   * Instances []generateEventNoBookingRequest `json:"instances"`
      * @returns 
      */
-    async scale_restreamer(restreamer_name, scale_value) {
+    async bulk_events_create(instances) {
       return await fetch(TNGRM_BASE_URL + SCALE_RESTREAMER, {
         method: "POST",
         headers: {
@@ -478,14 +478,13 @@ export class TangramClient {
         body: JSON.stringify({
           api_key: this.api_key,
           client_id: this.client_id,
-          instance_name: restreamer_name,
-          scale: parseInt(scale_value)
+          instances: instances
         }),
       })
       .then((res) => {
         if (!res.ok) {
           throw new Error(
-            `something went wrong during scale to ${scale_value} restreamer, ${res.status} ${res.statusText}`
+            `something went wrong during bulk_events_create ${instances}, ${res.status} ${res.statusText}`
           );
         }
         return res.json();
@@ -499,6 +498,16 @@ export class TangramClient {
       // });
     }
   
+
+    /**
+     * scale the restreamer to turn it on / off
+     * accept value 0 or 1
+     * @param {string} restreamer_name 
+     * @param {number} scale_value 
+     * @returns 
+     */
+
+
     /**
      * all argument are optionals except for start_from and amount,
      * example: get_uploads(0, 50, null, null, null)

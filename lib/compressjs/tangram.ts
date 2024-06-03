@@ -507,7 +507,7 @@ export class TangramClient {
 	   * StreamProtocol string `json:"stream_protocol" `
      * @returns 
      */
-    async restreamer_hls_start(instance_name, ) {
+    async restreamer_hls_start(instance_name, stream_protocol) {
       return await fetch(TNGRM_BASE_URL + RESTREAMER_HLS_START, {
         method: "POST",
         headers: {
@@ -531,7 +531,6 @@ export class TangramClient {
       })
     }
 
-
     /**
      * RESTREAMER_HLS_STOP
 	   * ApiKey   string `json:"api_key" `
@@ -540,7 +539,7 @@ export class TangramClient {
 	   * StreamProtocol string `json:"stream_protocol" `
      * @returns 
      */
-    async restreamer_hls_stop(instance_name, ) {
+    async restreamer_hls_stop(instance_name, stream_protocol) {
       return await fetch(TNGRM_BASE_URL + RESTREAMER_HLS_STOP, {
         method: "POST",
         headers: {

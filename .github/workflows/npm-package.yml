@@ -26,14 +26,14 @@ jobs:
       - run: npm run build
       #
       - name: Zip files for release
-        run: zip -r build.zip dist/
+        run: zip -r compress-nodejs.zip dist/
 
       - name: Upload Release Asset
         uses: actions/upload-release-asset@v1
         with:
           upload_url: ${{ github.event.release.upload_url }}
-          asset_path: ./build.zip  # Adjust according to your build output directory
-          asset_name: build.zip
+          asset_path: ./compress-nodejs.zip  # Adjust according to your build output directory
+          asset_name: compress-nodejs.zip
           asset_content_type: application/zip
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

@@ -3,10 +3,10 @@
     "private": false,
     "version": "0.5.01",
     "description": "The Compress NodeJS library provides access to the Compress API for encoding videos, restreamers",
-    "main": "dist/index.js",
-    "module": "dist/index.module.js",
-    "unpkg": "dist/index.umd.js",
-    "source": "lib/index.ts",
+    "main": "dist/compress.js",
+    "module": "dist/compress.module.js",
+    "unpkg": "dist/compress.umd.js",
+    "source": "lib/compress.ts",
     "repository": {
         "type": "git",
         "url": "git+https://github.com/HiWay-Media/compress-nodejs.git"

@@ -1,7 +1,7 @@
 {
     "name": "compress-nodejs",
     "private": false,
-    "version": "0.4.2",
+    "version": "0.5.0",
     "description": "The Compress NodeJS library provides access to the Compress API for encoding videos, restreamers",
     "main": "dist/index.js",
     "browser": "dist/index.js",
@@ -33,9 +33,6 @@
         "@rollup/plugin-node-resolve": "^15.0.1",
         "babel-loader": "^8.2.2",
         "rimraf": "^3.0.2",
-        "rollup": "^3.2.5",
-        "rollup-plugin-peer-deps-external": "^2.2.4",
-        "rollup-plugin-typescript2": "^0.31.1",
         "tslib": "^2.4.1"
     },
     "dependencies": {

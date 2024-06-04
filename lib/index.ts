@@ -1,5 +1,5 @@
 /**
- * v0.5.0
+ * v0.5.01
  * Author: Allan Nava       (allan.nava@hiway.media)
  * Author: Antonio Borgese  (antonio.borgese@hiway.media)
  * -----

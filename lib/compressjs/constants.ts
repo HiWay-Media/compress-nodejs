@@ -39,7 +39,11 @@ export const PRESIGNED_URL_S3               = `${GET_UPLOADS}/presignedUrl`;
 export const S3_SPACE                       = `${GET_UPLOADS}/s3_space`;
 export const ADD_VIDEO_THUMB                = `${GET_UPLOADS}/add_thumb`;
 export const SIGN_S3_URL                    = `${GET_UPLOADS}/sign_s3_url`;
+// credentials
 export const CREDENTIALS                    = `/external/credentials/`;
+// customers
+export const CUSTOMERS                      = `/external/customers/`;
+export const GET_CUSTOMER_ZONE              = `${CUSTOMERS}/s3`;
 export const PERMITTED_FILE_EXTENSIONS = [
   ".mov",
   ".mpeg1",

@@ -1,6 +1,7 @@
 /*
  *
- * Author: Allan Nava (allan.nava@hiway.media)
+ * Author: Allan Nava       (allan.nava@hiway.media)
+ * Author: Antonio Borgese  (antonio.borgese@hiway.media)
  * -----
  * Last Modified: 
  * Modified By: Allan Nava (allan.nava@hiway.media>)
@@ -9,7 +10,7 @@
  * 
  */
 
-import { TNGRM_BASE_URL, S3_SPACE, GET_CATEGORIES, PRESIGNED_URL_S3, ADD_VIDEO_THUMB, CREATE_UPLOAD, GET_RUNNING_SINGLE_INSTANCE, GET_RESTREAMERS, GET_RUNNING_INSTANCES, SCALE_RESTREAMER, GET_UPLOADS, GET_SINGLE_UPLOAD, SET_PUBLISHED_UPLOAD, SIGN_S3_URL, GET_JOBID_PROGRESS, CREDENTIALS, BULK_EVENTS_CREATE, RESTREAMER_HLS_START, RESTREAMER_HLS_STOP, RESTREAMER_PUSH_START, RESTREAMER_PUSH_STOP, RESTREAMER_PULL_START, RESTREAMER_PULL_STOP   } from "./constants";
+import { TNGRM_BASE_URL, S3_SPACE, GET_CATEGORIES, PRESIGNED_URL_S3, ADD_VIDEO_THUMB, CREATE_UPLOAD, GET_RUNNING_SINGLE_INSTANCE, GET_RESTREAMERS, GET_RUNNING_INSTANCES, SCALE_RESTREAMER, GET_UPLOADS, GET_SINGLE_UPLOAD, SET_PUBLISHED_UPLOAD, SIGN_S3_URL, GET_JOBID_PROGRESS, CREDENTIALS, BULK_EVENTS_CREATE, RESTREAMER_HLS_START, RESTREAMER_HLS_STOP, RESTREAMER_PUSH_START, RESTREAMER_PUSH_STOP, RESTREAMER_PULL_START, RESTREAMER_PULL_STOP, GET_CUSTOMER_ZONE   } from "./constants";
 // Import the EvaporateJS library
 //import  * from 'evaporate';
 //
@@ -279,30 +280,6 @@ export class TangramClient {
       let upload = await this.upload_s3(destination_folder, file, fileName);
       console.log("upload ", upload);
       return await this.encode(file_dest, file, title, tags, location_place, category_id);
-      /*return await fetch(TNGRM_BASE_URL + CREATE_UPLOAD, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            api_key: this.api_key,
-            title: title,
-            tags: tags,
-            category: parseInt(category_id),
-            location: location_place,
-            filename: file_dest,
-            size: parseInt(file.size),
-            reporter_email: `${this.customer_name}@tngrm.io`,
-          }),
-        })
-        .then((res) => {
-          if (!res.ok) {
-            throw new Error(
-              `something went wrong during create upload, ${res.status} ${res.statusText}`
-            );
-          }
-          return res.json();
-        });*/
       //
     }
   
@@ -737,15 +714,33 @@ export class TangramClient {
         }
         return res.json();
       });
-        // .then((json_res) => {
-        //   console.log(json_res);
-        //   return json_res.data;
-        // })
-        // .catch((err) => {
-        //   console.log(err);
-        // });
     }
   
+
+    /**
+     * Need to call before upload s3
+     * 
+     * @returns customer_s3
+     */
+    async getZone() {
+      return await fetch(TNGRM_BASE_URL + GET_CUSTOMER_ZONE, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          api_key: this.api_key,
+          client_id: this.client_id,
+        })
+      }).then((res) => {
+        if (!res.ok) {
+          throw new Error(
+            `something went wrong during get getZone, ${res.status} ${res.statusText}`
+          );
+        }
+        return res.json();
+      });
+    }
     /**
      * jobid is compulsory
      * example: get_single_upload(1000)

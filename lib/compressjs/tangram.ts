@@ -10,7 +10,7 @@
  * 
  */
 
-import { TNGRM_BASE_URL, S3_SPACE, GET_CATEGORIES, PRESIGNED_URL_S3, ADD_VIDEO_THUMB, CREATE_UPLOAD, GET_RUNNING_SINGLE_INSTANCE, GET_RESTREAMERS, GET_RUNNING_INSTANCES, SCALE_RESTREAMER, GET_UPLOADS, GET_SINGLE_UPLOAD, SET_PUBLISHED_UPLOAD, SIGN_S3_URL, GET_JOBID_PROGRESS, CREDENTIALS, BULK_EVENTS_CREATE, RESTREAMER_HLS_START, RESTREAMER_HLS_STOP, RESTREAMER_PUSH_START, RESTREAMER_PUSH_STOP, RESTREAMER_PULL_START, RESTREAMER_PULL_STOP, GET_CUSTOMER_ZONE   } from "./constants";
+import { TNGRM_BASE_URL, S3_SPACE, GET_CATEGORIES, PRESIGNED_URL_S3, ADD_VIDEO_THUMB, CREATE_UPLOAD, GET_RUNNING_SINGLE_INSTANCE, GET_RESTREAMERS, GET_RUNNING_INSTANCES, SCALE_RESTREAMER, GET_UPLOADS, GET_SINGLE_UPLOAD, SET_PUBLISHED_UPLOAD, SIGN_S3_URL, GET_JOBID_PROGRESS, CREDENTIALS, BULK_EVENTS_CREATE, RESTREAMER_HLS_START, RESTREAMER_HLS_STOP, RESTREAMER_PUSH_START, RESTREAMER_PUSH_STOP, RESTREAMER_PULL_START, RESTREAMER_PULL_STOP, GET_CUSTOMER_ZONE, EVENTS_HISTORY, LIVE_TO_VOD   } from "./constants";
 // Import the EvaporateJS library
 //import  * from 'evaporate';
 //
@@ -798,5 +798,71 @@ export class TangramClient {
       });
     }
     
+    /**
+     * 
+     * example: get_events_history()
+     * @param {number} start_from 
+     * @param {number} amount 
+     * @returns events list
+     */
+    async get_events_history(start_from, amount) {
+      return await fetch(TNGRM_BASE_URL + EVENTS_HISTORY, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          api_key: this.api_key,
+          client_id: this.client_id,
+          start_from: start_from,
+          amount, amount
+        }),
+      })
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error(
+            `something went wrong during get uploads, ${res.status} ${res.statusText}`
+          );
+        }
+        return res.json();
+      });
+    }
+
+    /**
+     * 
+     * example: live_to_vod
+     * @param {string} title 
+     * @param {string} event_id 
+     * @param {string} instance_name 
+     * @param {string} category 
+     * @returns events list
+     */
+    async live_to_vod(title, event_id, instance_name, category) {
+      return await fetch(TNGRM_BASE_URL + EVENTS_HISTORY, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          api_key: this.api_key,
+          client_id: this.client_id,
+          title: title,
+          event_id, event_id,
+          instance: instance_name,
+          category: category,
+          location: "",
+          thumbnails_number: "0",
+          protocol: ""
+        }),
+      })
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error(
+            `something went wrong during get uploads, ${res.status} ${res.statusText}`
+          );
+        }
+        return res.json();
+      });
+    }
 }
   

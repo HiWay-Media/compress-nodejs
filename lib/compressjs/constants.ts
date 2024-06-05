@@ -29,6 +29,8 @@ export const RESTREAMER_PULL_STOP           = `${GET_RESTREAMERS}/pull/stop`;
 // events 
 export const EVENTS_EXTERNAL                = "/external/events";
 export const BULK_EVENTS_CREATE             = `${EVENTS_EXTERNAL}/create_bulk`;
+export const EVENTS_HISTORY                 = `${EVENTS_EXTERNAL}/history`;
+export const LIVE_TO_VOD                    = `${EVENTS_EXTERNAL}/generate_vod`;
 // video upload
 export const GET_UPLOADS                    = "/external/upload";
 export const GET_SINGLE_UPLOAD              = `${GET_UPLOADS}/jobid`;

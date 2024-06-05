@@ -815,7 +815,7 @@ export class TangramClient {
           api_key: this.api_key,
           client_id: this.client_id,
           start_from: start_from,
-          amount, amount
+          amount: amount
         }),
       })
       .then((res) => {

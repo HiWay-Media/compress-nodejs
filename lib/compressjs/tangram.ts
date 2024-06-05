@@ -847,7 +847,7 @@ export class TangramClient {
           api_key: this.api_key,
           client_id: this.client_id,
           title: title,
-          event_id, event_id,
+          event_id: event_id,
           instance: instance_name,
           category: category,
           location: "",

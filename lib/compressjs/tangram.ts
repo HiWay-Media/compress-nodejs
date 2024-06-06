@@ -21,6 +21,7 @@ export class TangramClient {
     client_id: string;
     //evaporate: Evaporate;
     configEvaporate: any;
+    SIGNER_URL: string = `${TNGRM_BASE_URL}${SIGN_S3_URL}`
     /**
      * 
      * @param {string} apikey 

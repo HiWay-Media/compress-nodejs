@@ -71,7 +71,8 @@ uploadButton.addEventListener("click", (event) => {
     alert("Please select a file");
     return;
   }
-
+  console.log("tangram.SIGNER_URL ", tangram.SIGNER_URL);
+  //
   const path = "upload/"+fileInput.files[0].name;
   // renderlo dinamico @toninospiderman123
   const config = {

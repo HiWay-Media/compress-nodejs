@@ -72,6 +72,10 @@ uploadButton.addEventListener("click", (event) => {
     return;
   }
   console.log("tangram.SIGNER_URL ", tangram.SIGNER_URL);
+  tangram.getZone().then((res) => {
+    consolele.log("zone ", res);
+    //window.categories = res;
+  });
   //
   const path = "upload/"+fileInput.files[0].name;
   // renderlo dinamico @toninospiderman123

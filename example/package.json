@@ -1,10 +1,17 @@
 {
   "name": "compressjs-example",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "Example compress nodejs library",
+  "main": "example/dist/compress-example.js",
+  "module": "example/dist/compress-example.module.js",
+  "unpkg": "example/dist/compress-example.umd.js",
+  "source": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "prepare-commitlint": "npx husky install && chmod ug+x ./.husky/*",
+    "build": "microbundle",
+    "dev": "microbundle watch",
+    "prepublishOnly": "npm run build",
+    "prepare": "npm run build"
   },
   "repository": {
     "type": "git",
@@ -24,6 +31,8 @@
   },
   "homepage": "https://github.com/HiWay-Media/compress-nodejs#readme",
   "dependencies": {
-    "compress-nodejs": "^0.5.0"
+    "compress-nodejs": "^0.5.0",
+    "microbundle": "^0.15.1",
+    "evaporate": "^2.1.4"
   }
 }

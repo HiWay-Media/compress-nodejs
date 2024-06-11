@@ -6,6 +6,9 @@
   "module": "example/dist/compress-example.module.js",
   "unpkg": "example/dist/compress-example.umd.js",
   "source": "index.js",
+  "files": [
+    "example/dist/**/*"
+  ],
   "scripts": {
     "prepare-commitlint": "npx husky install && chmod ug+x ./.husky/*",
     "build": "microbundle",

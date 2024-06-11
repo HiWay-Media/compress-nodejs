@@ -194,7 +194,7 @@ export class TangramClient {
       // need to finish the add thumb
       return await fetch(TNGRM_BASE_URL + ADD_VIDEO_THUMB, {
         method: "POST",
-        data: fd,
+        body: fd,
         /*headers: {
           "Content-Type": "application/json",
         },*/

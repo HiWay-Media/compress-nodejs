@@ -21,7 +21,7 @@ export class TangramClient {
     client_id: string;
     //evaporate: Evaporate;
     configEvaporate: any;
-    SIGNER_URL: string = `${TNGRM_BASE_URL}${SIGN_S3_URL}`
+    SIGNER_URL: string = `${TNGRM_BASE_URL}${SIGN_S3_URL}`; // need to test it with api_key
     /**
      * 
      * @param {string} apikey 
@@ -31,24 +31,8 @@ export class TangramClient {
       //
       this.api_key        = apikey;
       this.customer_name  = customer_name;
-      this.client_id      = `${this.customer_name}_client`,
-      // understand if we need to saved globally all categories in constructor
-      this.configEvaporate = {
-        signerUrl: `${TNGRM_BASE_URL}${SIGN_S3_URL}`,
-        logging: true,
-        signHeaders: { tangram_key :  `` },
-        aws_url: "",
-        aws_key: "",
-        bucket: "",
-        cloudfront: false,
-        progressIntervalMS: 1000, //interval every 1 sec update progress callback
-        sendCanonicalRequestToSignerUrl: true, // needed for minio s3
-        computeContentMd5: true,
-        //cryptoMd5Method: function (data) { return CryptoJS.md5(data, 'base64'); },
-        //cryptoHexEncodedHash256: function (data) { return CryptoJS.sha256(data, 'hex'); }
-      }
+      this.client_id      = `${this.customer_name}_client`;
       //this.evaporate = new Evaporate(this.configEvaporate);
-      
     }
     //
     /**

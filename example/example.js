@@ -80,7 +80,7 @@ uploadButton.addEventListener("click", (event) => {
   const path = "upload/"+fileInput.files[0].name;
   // renderlo dinamico @toninospiderman123
   const config = {
-    signerUrl: "https://api.tngrm.io/api/v3.0/external/upload/sign_s3_url",
+    signerUrl: "https://api-compress.hiway.media/api/v4.0/external/upload/sign_s3_url",
     logging: true,
     signHeaders: { tangram_key: apiKeyInput.value },
     aws_url: ``,

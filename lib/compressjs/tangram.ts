@@ -441,7 +441,7 @@ export class TangramClient {
      * BULK_EVENTS_CREATE
      * accept value 0 or 1
 	   * Apikey    string                          `json:"api_key" validate:"nonzero,min=1"`
-	   * Instances []generateEventNoBookingRequest `json:"instances"`
+	   * Instances []generateEventNoBookingRequest `json:"instances"` --> [{`json:"instance_name", `json:"event_name", `json:"protocol", `json:"customer_id"}]
      * @returns 
      */
     async bulk_events_create(instances) {
@@ -463,14 +463,7 @@ export class TangramClient {
           );
         }
         return res.json();
-      })
-      // .then((json_res) => {
-      //   console.log(json_res);
-      //   return json_res.response;
-      // })
-      // .catch((err) => {
-      //   console.log(err);
-      // });
+      });
     }  
 
     /**

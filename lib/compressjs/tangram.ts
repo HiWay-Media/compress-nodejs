@@ -182,19 +182,27 @@ export class TangramClient {
   
     /**
      * @param {file} file_thumb 
+     * @param {number} jobid 
      * @returns 
      */
-     async add_video_thumb(file_thumb) {
+     async add_video_thumb(file_thumb, jobid) {
+      var fd = new FormData();
+      fd.append("api_key", this.api_key);
+      fd.append("client_id", this.client_id);
+      fd.append("file", file_thumb);
+      fd.append("jobid", jobid);
       // need to finish the add thumb
       return await fetch(TNGRM_BASE_URL + ADD_VIDEO_THUMB, {
         method: "POST",
+        data: fd,
         /*headers: {
           "Content-Type": "application/json",
         },*/
-        body: JSON.stringify({
+        /*body: JSON.stringify({
           api_key: this.api_key,
           client_id: this.client_id,
-        }),
+          jobid: jobid,
+        }),*/
       })
       .then((res) => {
         if (!res.ok) {
@@ -247,6 +255,7 @@ export class TangramClient {
      * @param {string} tags 
      * @param {string} location_place 
      * @param {number} category_id 
+     * @param {string} zone
      */
     async upload_with_encoding(
       destination_folder,
@@ -254,7 +263,8 @@ export class TangramClient {
       title,
       tags,
       location_place,
-      category_id
+      category_id,
+      zone,
     ) {
       //get categories
       let fileName = file.name
@@ -264,7 +274,7 @@ export class TangramClient {
       console.log(`uploading ${fileName} to minio S3...`);
       let upload = await this.upload_s3(destination_folder, file, fileName);
       console.log("upload ", upload);
-      return await this.encode(file_dest, file, title, tags, location_place, category_id);
+      return await this.encode(file_dest, file, title, tags, location_place, category_id, zone);
       //
     }
   
@@ -281,6 +291,7 @@ export class TangramClient {
        * @param {string} tags
        * @param {string} location_place
        * @param {number} category_id
+       * @param {string} zone
        */
      async encode(
         uploaded_filename,
@@ -288,7 +299,8 @@ export class TangramClient {
         title,
         tags,
         location_place,
-        category_id
+        category_id,
+        zone,
     ) {
         //get categories
         //path = path.replaceAll(" ", "_");
@@ -307,6 +319,7 @@ export class TangramClient {
                 filename: uploaded_filename,
                 size: parseInt(file.size),
                 reporter_email: `${this.customer_name}@tngrm.io`,
+                region: zone,
             }),
         }).then((res) => {
                 if (!res.ok) {

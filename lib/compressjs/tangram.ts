@@ -19,8 +19,10 @@ export class TangramClient {
     api_key: string;
     customer_name: string;
     client_id: string;
+    customerId: number;
     //evaporate: Evaporate;
     configEvaporate: any;
+    credentials: any;
     SIGNER_URL: string = `${TNGRM_BASE_URL}${SIGN_S3_URL}`; // need to test it with api_key
     /**
      * 
@@ -33,6 +35,12 @@ export class TangramClient {
       this.customer_name  = customer_name;
       this.client_id      = `${this.customer_name}_client`;
       //this.evaporate = new Evaporate(this.configEvaporate);
+      this.get_credential().then((res) => {
+        this.credentials  = res;
+        this.customerId   = res.customer_id;
+        //this.credentials = await this.get_credential();
+        //this.customerId = this.credentials.customerId;
+      });
     }
     //
     /**
@@ -65,6 +73,31 @@ export class TangramClient {
           return res.json();
         });
     }
+
+    /**
+     *
+     * @returns credential object
+     */
+    async get_credential() {
+      return await fetch(TNGRM_BASE_URL + CREDENTIALS, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          api_key: this.api_key,
+          client_id: this.client_id,
+        }),
+      }).then((res) => {
+        if (!res.ok) {
+          throw new Error(
+            `something went wrong during get categories, ${res.status} ${res.statusText}`
+          );
+        }
+        return res.json();
+      });
+    }
+
     //
     /**
      *
@@ -435,6 +468,35 @@ export class TangramClient {
         }
         return res.json();
       });
+    }
+
+    /**
+       * Checks if the given protocol is either "rtmp" or "srt".
+       *
+       * @param {string} protocol - The protocol to check.
+       * @returns {boolean} True if the protocol is "rtmp" or "srt", otherwise false.
+       */
+    static isValidProtocol(protocol) {
+      return protocol === 'rtmp' || protocol === 'srt';
+    }
+
+
+    /**
+     * 
+     * @param {string} instance_name 
+     * @param {string} event_name 
+     * @returns instance event object
+     */
+    createEvent(instance_name : string, event_name: string, protocol :string){
+      if (!isValidProtocol(protocol)){
+        return null
+      }
+      return {
+        "instance_name": instance_name,
+        "protocol": protocol,
+        "event_name": event_name,
+        "customer_id": this.cus
+      }
     }
   
     /**

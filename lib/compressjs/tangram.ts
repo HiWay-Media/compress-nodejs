@@ -488,7 +488,7 @@ export class TangramClient {
      * @returns instance event object
      */
     createEvent(instance_name : string, event_name: string, protocol :string){
-      if (!isValidProtocol(protocol)){
+      if (!this.isValidProtocol(protocol)){
         return null
       }
       return {

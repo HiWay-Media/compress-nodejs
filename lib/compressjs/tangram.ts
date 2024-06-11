@@ -476,7 +476,7 @@ export class TangramClient {
        * @param {string} protocol - The protocol to check.
        * @returns {boolean} True if the protocol is "rtmp" or "srt", otherwise false.
        */
-    static isValidProtocol(protocol) {
+    isValidProtocol(protocol) {
       return protocol === 'rtmp' || protocol === 'srt';
     }
 
@@ -488,7 +488,7 @@ export class TangramClient {
      * @returns instance event object
      */
     createEvent(instance_name : string, event_name: string, protocol :string){
-      if (!this.isValidProtocol(protocol)){
+      if (! this.isValidProtocol(protocol)){
         return null
       }
       return {

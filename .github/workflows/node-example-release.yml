@@ -1,7 +1,7 @@
 name: Publish compress-nodejs example to release
 on:
-  push:
-    branches: [ master, main ]
+  #push:
+  #  branches: [ master, main ]
   release:
     types: [published]
 jobs:

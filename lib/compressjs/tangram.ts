@@ -495,7 +495,7 @@ export class TangramClient {
         "instance_name": instance_name,
         "protocol": protocol,
         "event_name": event_name,
-        "customer_id": this.cus
+        "customer_id": this.customerId,
       }
     }
   

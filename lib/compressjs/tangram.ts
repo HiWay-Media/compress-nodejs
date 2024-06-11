@@ -482,7 +482,7 @@ export class TangramClient {
 
 
     /**
-     * 
+     * To create a bulk events
      * @param {string} instance_name 
      * @param {string} event_name 
      * @returns instance event object
@@ -591,6 +591,24 @@ export class TangramClient {
         }
         return res.json();
       })
+    }
+
+    /**
+     * To create an external server object 
+     * @param {string} audio_channel 
+     * @param {string} ingest_protocol 
+     * @param {string} external_server 
+     * @returns external server object
+     */
+    createExternalServer(audio_channel: string, ingest_protocol: string, external_server: string){
+      if (! this.isValidProtocol(ingest_protocol)){
+        return null
+      }
+      return {
+        "external_server": external_server,
+        "audio_channel": audio_channel,
+        "ingest_protocol": ingest_protocol,
+      }
     }
 
     /** TODO:

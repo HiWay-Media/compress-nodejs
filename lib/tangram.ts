@@ -448,6 +448,35 @@ class TangramClient {
 
   /**
    * 
+   * @param {number} start_from 
+   * @param {number} amount 
+   * @returns restreamer list
+   */
+  async get_restreamers_ott_all(start_from, amount) {
+    return await fetch(TNGRM_BASE_URL + GET_RESTREAMERS_OTT_ALL, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        api_key: this.api_key,
+        client_id: this.client_id,
+        start_from: parseInt(start_from),
+        amount: parseInt(amount)
+      }),
+    })
+    .then((res) => {
+      if (!res.ok) {
+        throw new Error(
+          `something went wrong during get restreamers, ${res.status} ${res.statusText}`
+        );
+      }
+      return res.json();
+    })
+  }
+
+  /**
+   * 
    * @returns restreamer object
    */
   async get_restreamer(instance_name) {

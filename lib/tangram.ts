@@ -527,6 +527,34 @@ class TangramClient {
   }
 
   /**
+   * scale restreamer 
+   * @param {string} instance_name 
+   * @param {number} scale 
+   * @returns restreamer object
+   */
+  async scale_restreamer(instance_name, scale){
+    return await fetch(TNGRM_BASE_URL + SCALE_RESTREAMER, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        api_key: this.api_key,
+        client_id: this.client_id,
+        instance_name: instance_name,
+        scale: scale,
+      }),
+    }).then((res) => {
+        if (!res.ok) {
+          throw new Error(
+            `something went wrong during get running instances, ${res.status} ${res.statusText}`
+          );
+        }
+        return res.json();
+      });
+  }
+
+  /**
      * Checks if the given protocol is either "rtmp" or "srt".
      *
      * @param {string} protocol - The protocol to check.

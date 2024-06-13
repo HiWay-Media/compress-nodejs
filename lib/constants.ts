@@ -17,6 +17,7 @@ export const GET_CATEGORIES                 = "/external/upload/categories";
 export const CREATE_CATEGORY                = `${GET_CATEGORIES}/create`;
 // restreamers 
 export const GET_RESTREAMERS                = "/external/restreamers";
+export const GET_RESTREAMERS_OTT_ALL        = `${GET_RESTREAMERS}/ott_all`;
 export const GET_RUNNING_INSTANCES          = `${GET_RESTREAMERS}/running_instances`;
 export const GET_RUNNING_SINGLE_INSTANCE    = `${GET_RESTREAMERS}/single_instance`;
 export const SCALE_RESTREAMER               = `${GET_RESTREAMERS}/scale_instance`;

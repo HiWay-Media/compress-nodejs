@@ -6,7 +6,7 @@
     "main": "dist/compress.js",
     "module": "dist/compress.module.js",
     "unpkg": "dist/compress.umd.js",
-    "source": "lib/index.ts",
+    "source": "lib/tangram.ts",
     "repository": {
         "type": "git",
         "url": "git+https://github.com/HiWay-Media/compress-nodejs.git"
@@ -21,8 +21,8 @@
     ],
     "scripts": {
         "prepare-commitlint": "npx husky install && chmod ug+x ./.husky/*",
-        "build": "microbundle",
-        "dev": "microbundle watch",
+        "build": "microbundle --name TangramClient",
+        "dev": "microbundle watch --name TangramClient",
         "prepublishOnly": "npm run build",
         "prepare": "npm run build"
     },

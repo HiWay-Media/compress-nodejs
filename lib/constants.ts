@@ -11,7 +11,7 @@
  * 
  */
 
-export const TNGRM_BASE_URL                 = "https://api-compress.hiway.media/api/v4.0";
+export const TNGRM_BASE_URL                 = "https://api-compress.hiwaymedia.dev/api/v4.0";
 //export const AUTH_LOGIN                     = "/external/auth/login"; deprecated
 export const GET_CATEGORIES                 = "/external/upload/categories";
 export const CREATE_CATEGORY                = `${GET_CATEGORIES}/create`;
@@ -42,10 +42,10 @@ export const S3_SPACE                       = `${GET_UPLOADS}/s3_space`;
 export const ADD_VIDEO_THUMB                = `${GET_UPLOADS}/add_thumb`;
 export const SIGN_S3_URL                    = `${GET_UPLOADS}/sign_s3_url`;
 // credentials
-export const CREDENTIALS                    = `/external/credentials/`;
+export const CREDENTIALS                    = `/external/credentials`;
 // customers
 export const CUSTOMERS                      = `/external/customers/`;
-export const GET_CUSTOMER_ZONE              = `${CUSTOMERS}/s3`;
+export const GET_CUSTOMER_ZONE              = `${CUSTOMERS}s3`;
 export const PERMITTED_FILE_EXTENSIONS = [
   ".mov",
   ".mpeg1",

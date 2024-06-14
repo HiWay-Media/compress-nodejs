@@ -6,12 +6,6 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Compress</title>
-
-    <script type="text/javascript" src="spark-md5.min.js"></script>
-    <script type="text/javascript" src="sha256.js"></script>
-    <script type="text/javascript" src="evaporate.js"></script>
-    <script type="text/javascript" src="tangram.js"></script>
-
 </head>
 
 <body>
@@ -19,10 +13,10 @@
 
     <div id="connect_section">
         <label>API KEY</label>
-        <input type="text" id="api_key" value="" name="api_key" form-init="true">
+        <input type="text" id="api_key" value="3d6fb06f-3ed2-41dc-b26b-07a52aca2c7c" name="api_key" form-init="true">
 
         <label>CLIENT</label>
-        <input type="text" id="customer_name" value="" name="customer_name" form-init="true">
+        <input type="text" id="customer_name" value="demo" name="customer_name" form-init="true">
 
         <button id="connect">Connect</button>
     </div>
@@ -40,7 +34,7 @@
         <br />
         <br />
         <label for="file">Choose a file:</label>
-        <input type="file" id="file_to_upload" name="file">
+        <input type="file" id="file_to_upload" name="file" accept="video/*">
         <br />
         <br />
         <button id="upload">Upload</button>
@@ -56,7 +50,7 @@
 
     <!--  -->
 </body>
-
+<script type="text/javascript" src="./dist/compress.umd.js"></script>
 <script type="text/javascript" src="example.js"></script>
 
 </html>

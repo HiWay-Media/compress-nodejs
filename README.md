@@ -27,6 +27,25 @@ yarn add compress-nodejs
 
 Here's a basic example of how to use Compress Node.js:
 
+```javascript
+
+var apiKey = apiKeyInput.value;
+var customerName = customerNameInput.value;
+
+if (!apiKey) {
+    alert("Please enter an API Key");
+    return;
+}
+
+if (!customerName) {
+    alert("Please enter a Customer Name");
+    return;
+}
+
+window.tangram = new TangramClient(apiKey, customerName);
+
+```
+Check also `example.js` and `index.html`
 
 
 ## Contributing

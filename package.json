@@ -20,22 +20,18 @@
         "dist/**/*"
     ],
     "scripts": {
-        "prepare-commitlint": "npx husky install && chmod ug+x ./.husky/*",
         "build": "microbundle --name TangramClient",
         "dev": "microbundle watch --name TangramClient",
         "prepublishOnly": "npm run build",
         "prepare": "npm run build"
     },
-    "peerDependencies": {
-        "husky": "^8.0.3",
-        "moment": "^2.29.4"
-    },
     "devDependencies": {
-        "microbundle": "^0.15.1",
+        "crypto-js": "^4.2.0",
+        "evaporate": "^2.1.4",
+        "jssha": "^3.3.1",
         "tslib": "^2.4.1"
     },
     "dependencies": {
-        "microbundle": "^0.15.1",
-        "evaporate": "^2.1.4"
+        "microbundle": "^0.15.1"
     }
 }

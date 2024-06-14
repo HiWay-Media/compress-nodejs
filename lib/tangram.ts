@@ -13,7 +13,7 @@
 import { TNGRM_BASE_URL, S3_SPACE, GET_CATEGORIES, PRESIGNED_URL_S3, ADD_VIDEO_THUMB, CREATE_UPLOAD, GET_RUNNING_SINGLE_INSTANCE, GET_RESTREAMERS, GET_RUNNING_INSTANCES, SCALE_RESTREAMER, GET_UPLOADS, GET_SINGLE_UPLOAD, SET_PUBLISHED_UPLOAD, SIGN_S3_URL, GET_JOBID_PROGRESS, CREDENTIALS, BULK_EVENTS_CREATE, RESTREAMER_HLS_START, RESTREAMER_HLS_STOP, RESTREAMER_PUSH_START, RESTREAMER_PUSH_STOP, RESTREAMER_PULL_START, RESTREAMER_PULL_STOP, GET_CUSTOMER_ZONE, EVENTS_HISTORY, LIVE_TO_VOD, GET_RESTREAMERS_OTT_ALL } from "./constants";
 
 import Evaporate from "evaporate";
-import * as crypto from "crypto";
+import CryptoJS from "crypto-js";
 //
 class TangramClient {
   //
@@ -255,7 +255,7 @@ class TangramClient {
    * 
   */
   get_sign_s3_url() {
-    return SIGN_S3_URL
+    return TNGRM_BASE_URL + SIGN_S3_URL
   }
 
 
@@ -263,12 +263,92 @@ class TangramClient {
    * 
    * 
   */
-  async upload() {
+  async upload({
+    file,
+    title = "",
+    tags = "",
+    location = "",
+    category_id,
+    onStart,
+    onProgress,
+    onComplete,
+    onError,
+  }) {
+    console.log(file, title, tags, location, category_id, onProgress, onComplete, onError)
+
+    const _this = this;
+    const sign_s3_url = this.get_sign_s3_url()
+
     try {
-      const zone = await this.get_zone();
-      console.log("zone", zone);
+      const zoneRepsonse = await _this.get_zone();
+
+      const zone = zoneRepsonse.data.zone
+      const bucket_upload = zoneRepsonse.data.bucket_upload
+      const access_key = zoneRepsonse.data.access_key
+      const host = zoneRepsonse.data.host
+      const evaporate = await Evaporate.create({
+        signerUrl: sign_s3_url,
+        logging: false,
+        signHeaders: { tangram_key: _this.api_key },
+        aws_url: host,
+        aws_key: access_key,
+        bucket: bucket_upload,
+        cloudfront: false,
+        progressIntervalMS: 1000,
+        sendCanonicalRequestToSignerUrl: true,
+        computeContentMd5: true,
+        cryptoMd5Method: (data) => {
+          const wordArray = CryptoJS.lib.WordArray.create(data);
+          const hash = CryptoJS.MD5(wordArray);
+          const base64 = CryptoJS.enc.Base64.stringify(hash);
+          return base64;
+        },
+        cryptoHexEncodedHash256: (data) => {
+          const hash = CryptoJS.SHA256(data);
+          const hex = hash.toString(CryptoJS.enc.Hex);
+          return hex;
+        }
+      })
+
+      const fileName = file.name.trim();
+
+      evaporate.add({
+        file: file,
+        name: fileName,
+        started: () => {
+          if (onStart) {
+            onStart()
+          }else{
+            console.log("started...")
+          }
+        },
+        progress: (percent, status) => {
+          if (onProgress) {
+            onProgress(percent, status)
+          } else {
+            console.log(percent, status)
+          }
+        },
+        complete: async (result) => {
+          const uploadRespone = await _this.encode(fileName, file, title, tags, location, category_id, zone)
+          if (onComplete) {
+            onComplete(uploadRespone)
+          } else {
+            console.log(uploadRespone, result)
+          }
+        },
+        error: (error) => {
+          if (onError) {
+            onError(error)
+          } else {
+            console.log(error)
+          }
+        }
+      })
+
+
     } catch (e) {
-      console.log("failed to get zone", e);
+      console.log("failed to upload", e);
     }
 
   }

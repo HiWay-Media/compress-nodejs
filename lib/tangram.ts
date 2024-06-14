@@ -248,8 +248,6 @@ class TangramClient {
       });
   }
 
-
-
   /**
    * 
    * 
@@ -258,10 +256,23 @@ class TangramClient {
     return TNGRM_BASE_URL + SIGN_S3_URL
   }
 
-
   /** 
    * 
-   * 
+   * upload video with compress encoding and evaporate js lib
+   *
+   * if destination folder is empty, it will upload to the root of the bucket
+   *
+   * remember to specify the folder (usually upload)
+   *
+   * @param {file} file 
+   * @param {string} title 
+   * @param {string} tags 
+   * @param {string} location_place 
+   * @param {number} category_id 
+   * @param {fn} onStart 
+   * @param {fn} onProgress 
+   * @param {fn} onComplete 
+   * @param {fn} onError 
   */
   async upload({
     file,
@@ -442,9 +453,6 @@ class TangramClient {
     category_id,
     zone,
   ) {
-    //get categories
-    //path = path.replaceAll(" ", "_");
-    //console.log("upload ", upload);
     return await fetch(TNGRM_BASE_URL + CREATE_UPLOAD, {
       method: "POST",
       headers: {

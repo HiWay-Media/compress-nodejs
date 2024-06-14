@@ -11,7 +11,7 @@
  * 
  */
 
-export const TNGRM_BASE_URL                 = "https://api-compress.hiwaymedia.dev/api/v4.0";
+export const TNGRM_BASE_URL                 = "https://api-compress.hiway.media/api/v4.0";
 //export const AUTH_LOGIN                     = "/external/auth/login"; deprecated
 export const GET_CATEGORIES                 = "/external/upload/categories";
 export const CREATE_CATEGORY                = `${GET_CATEGORIES}/create`;

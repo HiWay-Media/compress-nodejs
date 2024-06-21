@@ -237,8 +237,6 @@ class TangramClient {
       });
   }
 
-
-
   /**
    * 
    * 
@@ -246,7 +244,6 @@ class TangramClient {
   get_sign_s3_url() {
     return TNGRM_BASE_URL + SIGN_S3_URL
   }
-
 
   /** 
    * 
@@ -435,9 +432,6 @@ class TangramClient {
     category_id,
     zone,
   ) {
-    //get categories
-    //path = path.replaceAll(" ", "_");
-    //console.log("upload ", upload);
     return await fetch(TNGRM_BASE_URL + CREATE_UPLOAD, {
       method: "POST",
       headers: {

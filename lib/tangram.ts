@@ -161,7 +161,7 @@ class TangramClient {
    * @param {string} filename
    * @param {File} file
    */
-  async upload_s3( filename, file ) {
+  async upload_s3( filename : string, file: File ) {
     //
     console.log("filename ", filename);
     //getting presigned url
@@ -359,16 +359,15 @@ class TangramClient {
    * if destination folder is empty, it will upload to the root of the bucket
    *
    * remember to specify the folder (usually upload)
-   * @param {string} destination_folder 
-   * @param {file} file 
+   * @param {File} file 
    */
-  async upload_no_encoding(destination_folder, file) {
+  async upload_no_encoding( file : File) {
     //file.name = file.name.replaceAll(" ", "_");
     let fileName = file.name
     //.replaceAll(" ", "_");
     console.log(`uploading ${fileName} to minio S3...`);
     //upload to minio and create_upload on comress for encoding
-    return await this.upload_s3(destination_folder, file, fileName)
+    return await this.upload_s3( fileName, file,)
       .then(async () => {
         console.log(`${fileName} uploaded!`);
         return "OK";

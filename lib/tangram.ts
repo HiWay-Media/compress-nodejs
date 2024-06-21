@@ -161,57 +161,56 @@ class TangramClient {
    * videos will not be displayed in compress platform,
    *
    * this is just a plain upload to s3 storage
-   * @param {string} destination_folder
-   * @param {string} filename
    * @param {file} file
    */
-  async upload_s3(destination_folder, file, filename) {
-    //
-    //filename = filename.replaceAll(" ", "_");
-    let file_dest = destination_folder + "/" + filename;
-    //   //file check
-    //   let file_ext = "." + file.type.split("/")[1]
-    //   console.log(file_ext);
-    //   if (!PERMITTED_FILE_EXTENSIONS.contains(file_ext)) {
-    //       throw new Error(`file extension not permitted, permitted extensions are: ${PERMITTED_FILE_EXTENSIONS.toString()}`)
-    //   }
-    //
-    console.log("file_dest ", file_dest);
-    //getting presigned url
-    let json = await fetch(TNGRM_BASE_URL + PRESIGNED_URL_S3, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        customer: this.customer_name,
-        filename: file_dest,
-      }),
-    })
-      .then((res) => {
-        if (!res.ok) {
-          console.log(res);
-          throw new Error(
-            `something went wrong with getting minio s3 presigned url, ${res.status} ${res.statusText}`
-          );
-        }
-        return res.json();
+  async upload_s3({
+    file,
+    title = "",
+    tags = "",
+    location = "",
+    category_id,
+  }) {
+    const _this = this;
+    try {
+
+      const presignedResponse = await fetch(TNGRM_BASE_URL + PRESIGNED_URL_S3, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          "api_key": this.api_key,
+          "client_id": this.client_id,
+          "filename": file.name
+        }),
       });
-    console.log(`presigned_url: ${json.message}`);
-    let presigned_url = json.message;
-    //upload to minio s3 with presigned url
-    await fetch(presigned_url, {
-      method: "PUT",
-      body: file,
-    }).then((res) => {
-      if (!res.ok) {
-        console.log(res);
-        throw new Error(
-          `something went wrong during upload file to s3 minio, ${res.status} ${res.statusText}`
-        );
+      const presignedJson = await presignedResponse.json();
+      if (presignedJson.response == "OK") {
+        const presigned_url = presignedJson.message;
+        const region = presignedJson.region;
+        const presignedUpload = await fetch(presigned_url, {
+          method: "PUT",
+          body: file,
+        });
+        if (presignedUpload.ok) {
+          const uploadRespone = await _this.encode(file.name, file, title, tags, location, category_id, region)
+          return uploadRespone
+        } else {
+          return {
+            "response": "KO",
+            "message": "failed to upload to s3"
+          }
+        }
+      } else {
+        return presignedJson
       }
-      console.log(res);
-    });
+    } catch (e) {
+
+      return {
+        "response": "KO",
+        "message": "failed to upload to s3"
+      }
+    }
   }
 
   /**
@@ -285,7 +284,6 @@ class TangramClient {
     onComplete,
     onError,
   }) {
-    console.log(file, title, tags, location, category_id, onProgress, onComplete, onError)
 
     const _this = this;
     const sign_s3_url = this.get_sign_s3_url()
@@ -329,7 +327,7 @@ class TangramClient {
         started: () => {
           if (onStart) {
             onStart()
-          }else{
+          } else {
             console.log("started...")
           }
         },
@@ -362,71 +360,6 @@ class TangramClient {
       console.log("failed to upload", e);
     }
 
-  }
-
-  /**
-   * upload video without encoding
-   *
-   * just a plain upload to s3 storage
-   *
-   * videos uploaded with this will NOT be listed from compress platform
-   *
-   * if destination folder is empty, it will upload to the root of the bucket
-   *
-   * remember to specify the folder (usually upload)
-   * @param {string} destination_folder 
-   * @param {file} file 
-   */
-  async upload_no_encoding(destination_folder, file) {
-    //file.name = file.name.replaceAll(" ", "_");
-    let fileName = file.name
-    //.replaceAll(" ", "_");
-    console.log(`uploading ${fileName} to minio S3...`);
-    //upload to minio and create_upload on comress for encoding
-    return await this.upload_s3(destination_folder, file, fileName)
-      .then(async () => {
-        console.log(`${fileName} uploaded!`);
-        return "OK";
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }
-
-  /**
-   * upload video with compress encoding
-   *
-   * if destination folder is empty, it will upload to the root of the bucket
-   *
-   * remember to specify the folder (usually upload)
-   *
-   * @param {string} destination_folder 
-   * @param {file} file 
-   * @param {string} title 
-   * @param {string} tags 
-   * @param {string} location_place 
-   * @param {number} category_id 
-   * @param {string} zone
-   */
-  async upload_with_encoding(
-    destination_folder,
-    file,
-    title,
-    tags,
-    location_place,
-    category_id,
-    zone,
-  ) {
-    //get categories
-    let fileName = file.name
-    //.replaceAll(" ", "_");
-    let file_dest = destination_folder + "/" + fileName;
-    // wait until the file is uploaded
-    console.log(`uploading ${fileName} to minio S3...`);
-    let upload = await this.upload_s3(destination_folder, file, fileName);
-    console.log("upload ", upload);
-    return await this.encode(file_dest, file, title, tags, location_place, category_id, zone);
-    //
   }
 
   /**
@@ -553,14 +486,14 @@ class TangramClient {
         amount: parseInt(amount)
       }),
     })
-    .then((res) => {
-      if (!res.ok) {
-        throw new Error(
-          `something went wrong during get restreamers, ${res.status} ${res.statusText}`
-        );
-      }
-      return res.json();
-    })
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error(
+            `something went wrong during get restreamers, ${res.status} ${res.statusText}`
+          );
+        }
+        return res.json();
+      })
   }
 
   /**
@@ -620,7 +553,7 @@ class TangramClient {
    * @param {number} scale 
    * @returns restreamer object
    */
-  async scale_restreamer(instance_name, scale){
+  async scale_restreamer(instance_name, scale) {
     return await fetch(TNGRM_BASE_URL + SCALE_RESTREAMER, {
       method: "POST",
       headers: {
@@ -633,13 +566,13 @@ class TangramClient {
         scale: scale,
       }),
     }).then((res) => {
-        if (!res.ok) {
-          throw new Error(
-            `something went wrong during get running instances, ${res.status} ${res.statusText}`
-          );
-        }
-        return res.json();
-      });
+      if (!res.ok) {
+        throw new Error(
+          `something went wrong during get running instances, ${res.status} ${res.statusText}`
+        );
+      }
+      return res.json();
+    });
   }
 
   /**

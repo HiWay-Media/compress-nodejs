@@ -1,7 +1,7 @@
 {
     "name": "compress-nodejs",
     "private": false,
-    "version": "1.0.0",
+    "version": "0.5.04",
     "description": "The Compress NodeJS library provides access to the Compress API for encoding videos, restreamers",
     "main": "dist/compress.js",
     "module": "dist/compress.module.js",
@@ -20,8 +20,8 @@
         "dist/**/*"
     ],
     "scripts": {
-        "build": "microbundle --name TangramClient",
-        "dev": "microbundle watch --name TangramClient",
+        "build": "microbundle --name TangramClient --define API_ENDPOINT=https://api-compress.hiway.media/api/v4.0",
+        "dev": "microbundle watch --name TangramClient --define API_ENDPOINT=https://api-compress.hiwaymedia.dev/api/v4.0",
         "prepublishOnly": "npm run build",
         "prepare": "npm run build"
     },

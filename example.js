@@ -11,6 +11,7 @@ window.uploadSection = document.getElementById("upload_section");
 window.fileInput = document.getElementById("file_to_upload");
 window.categorySelect = document.getElementById("categories");
 window.uploadButton = document.getElementById("upload");
+window.uploadButtonPresigned = document.getElementById("upload_presign_url");
 window.titleInput = document.getElementById("title");
 window.progress = document.getElementById("progress");
 window.progressBar = document.getElementById("progress_bar");
@@ -49,24 +50,35 @@ connectButton.addEventListener("click", (event) => {
 });
 
 
-uploadButton.addEventListener("click", (event) => {
+function validateForm() {
   const title = titleInput.value;
   const category = categorySelect.value;
 
   if (!title) {
     alert("Please enter a title");
-    return;
+    return false;
   }
 
   if (!category) {
     alert("Please select a category");
-    return;
+    return false;
   }
 
   if (fileInput.files.length == 0) {
     alert("Please select a file");
+    return false;
+  }
+  return true
+}
+
+
+uploadButton.addEventListener("click", (event) => {
+
+  if (!validateForm()) {
     return;
   }
+  const title = titleInput.value;
+  const category = categorySelect.value;
 
   tangram.upload({
     file: fileInput.files[0],
@@ -74,6 +86,7 @@ uploadButton.addEventListener("click", (event) => {
     category_id: category,
     onStart: () => {
       uploadButton.disabled = true;
+      uploadButtonPresigned.disabled = true;
       fileInput.disabled = true;
       titleInput.disabled = true;
       categorySelect.disabled = true;
@@ -86,6 +99,7 @@ uploadButton.addEventListener("click", (event) => {
     onComplete: (result) => {
       alert("File uploaded successfully")
       uploadButton.disabled = false;
+      uploadButtonPresigned.disabled = false;
       fileInput.disabled = false;
       titleInput.disabled = false;
       categorySelect.disabled = false;
@@ -96,5 +110,51 @@ uploadButton.addEventListener("click", (event) => {
       alert(error)
     }
   });
+
+});
+
+uploadButtonPresigned.addEventListener("click", (event) => {
+
+  if (!validateForm()) {
+    return;
+  }
+
+  const title = titleInput.value;
+  const category = categorySelect.value;
   
+  uploadButton.disabled = true;
+  uploadButtonPresigned.disabled = true;
+  fileInput.disabled = true;
+  titleInput.disabled = true;
+  categorySelect.disabled = true;
+  progress.style.display = "block";
+  progressBar.style.width = "0%";
+  tangram.upload_s3({
+    file: fileInput.files[0],
+    title,
+    category_id: category
+  }).then((res) => {
+    if (res.response == "KO") {
+      alert(res.message)
+      uploadButton.disabled = false;
+      uploadButtonPresigned.disabled = false;
+      fileInput.disabled = false;
+      titleInput.disabled = false;
+      categorySelect.disabled = false;
+      progress.style.display = "none";
+      progressBar.style.width = "0%";
+      return;
+    }
+    progressBar.style.width = "100%";
+    setTimeout(() => {
+      alert("File uploaded successfully")
+      uploadButton.disabled = false;
+      uploadButtonPresigned.disabled = false;
+      fileInput.disabled = false;
+      titleInput.disabled = false;
+      categorySelect.disabled = false;
+      progress.style.display = "none";
+      progressBar.style.width = "0%";
+    }, 5000);
+  })
 });

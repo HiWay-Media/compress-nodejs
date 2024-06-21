@@ -10,8 +10,8 @@
  * Copyright 2023 - 2024 © 
  * 
  */
-
-export const TNGRM_BASE_URL                 = "https://api-compress.hiway.media/api/v4.0";
+declare var API_ENDPOINT: string;
+export const TNGRM_BASE_URL                 = API_ENDPOINT;
 //export const AUTH_LOGIN                     = "/external/auth/login"; deprecated
 export const GET_CATEGORIES                 = "/external/upload/categories";
 export const CREATE_CATEGORY                = `${GET_CATEGORIES}/create`;

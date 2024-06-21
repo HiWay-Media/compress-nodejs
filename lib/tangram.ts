@@ -1,5 +1,5 @@
 /*
- * v1.0.0
+ * v1.0.1
  * Author: Allan Nava       (allan.nava@hiway.media)
  * Author: Antonio Borgese  (antonio.borgese@hiway.media)
  * -----
@@ -39,8 +39,6 @@ class TangramClient {
     this.get_credential().then((res) => {
       this.credentials = res;
       this.customerId = res.customer_id;
-      //this.credentials = await this.get_credential();
-      //this.customerId = this.credentials.customerId;
     });
   }
   //
@@ -62,7 +60,6 @@ class TangramClient {
       body: JSON.stringify({
         api_key: this.api_key,
         client_id: this.client_id,
-        //client_id: `${this.customer_name}_client`,
       }),
     })
       .then((res) => {
@@ -161,22 +158,12 @@ class TangramClient {
    * videos will not be displayed in compress platform,
    *
    * this is just a plain upload to s3 storage
-   * @param {string} destination_folder
    * @param {string} filename
-   * @param {file} file
+   * @param {File} file
    */
-  async upload_s3(destination_folder, file, filename) {
+  async upload_s3( filename : string, file: File ) {
     //
-    //filename = filename.replaceAll(" ", "_");
-    let file_dest = destination_folder + "/" + filename;
-    //   //file check
-    //   let file_ext = "." + file.type.split("/")[1]
-    //   console.log(file_ext);
-    //   if (!PERMITTED_FILE_EXTENSIONS.contains(file_ext)) {
-    //       throw new Error(`file extension not permitted, permitted extensions are: ${PERMITTED_FILE_EXTENSIONS.toString()}`)
-    //   }
-    //
-    console.log("file_dest ", file_dest);
+    console.log("filename ", filename);
     //getting presigned url
     let json = await fetch(TNGRM_BASE_URL + PRESIGNED_URL_S3, {
       method: "POST",
@@ -184,8 +171,9 @@ class TangramClient {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        customer: this.customer_name,
-        filename: file_dest,
+        api_key: this.api_key,
+        client_id: this.client_id,
+        filename: filename,
       }),
     })
       .then((res) => {
@@ -199,6 +187,7 @@ class TangramClient {
       });
     console.log(`presigned_url: ${json.message}`);
     let presigned_url = json.message;
+    //let zone = json.region;
     //upload to minio s3 with presigned url
     await fetch(presigned_url, {
       method: "PUT",
@@ -258,21 +247,14 @@ class TangramClient {
 
   /** 
    * 
-   * upload video with compress encoding and evaporate js lib
-   *
-   * if destination folder is empty, it will upload to the root of the bucket
-   *
-   * remember to specify the folder (usually upload)
-   *
-   * @param {file} file 
-   * @param {string} title 
-   * @param {string} tags 
-   * @param {string} location_place 
-   * @param {number} category_id 
-   * @param {fn} onStart 
-   * @param {fn} onProgress 
-   * @param {fn} onComplete 
-   * @param {fn} onError 
+   * @param {File} file
+   * @param {string} title
+   * @param {string} tags
+   * @param {number} category_id
+   * @param {fn} onStart
+   * @param {fn} onProgress
+   * @param {fn} onComplete
+   * @param {onError} onComplete
   */
   async upload({
     file,
@@ -374,16 +356,15 @@ class TangramClient {
    * if destination folder is empty, it will upload to the root of the bucket
    *
    * remember to specify the folder (usually upload)
-   * @param {string} destination_folder 
-   * @param {file} file 
+   * @param {File} file 
    */
-  async upload_no_encoding(destination_folder, file) {
+  async upload_no_encoding( file : File) {
     //file.name = file.name.replaceAll(" ", "_");
     let fileName = file.name
     //.replaceAll(" ", "_");
     console.log(`uploading ${fileName} to minio S3...`);
     //upload to minio and create_upload on comress for encoding
-    return await this.upload_s3(destination_folder, file, fileName)
+    return await this.upload_s3( fileName, file,)
       .then(async () => {
         console.log(`${fileName} uploaded!`);
         return "OK";
@@ -400,7 +381,6 @@ class TangramClient {
    *
    * remember to specify the folder (usually upload)
    *
-   * @param {string} destination_folder 
    * @param {file} file 
    * @param {string} title 
    * @param {string} tags 
@@ -409,23 +389,22 @@ class TangramClient {
    * @param {string} zone
    */
   async upload_with_encoding(
-    destination_folder,
     file,
     title,
     tags,
     location_place,
     category_id,
-    zone,
+    zone : string,
   ) {
     //get categories
     let fileName = file.name
     //.replaceAll(" ", "_");
-    let file_dest = destination_folder + "/" + fileName;
+    //let file_dest = destination_folder + "/" + fileName;
     // wait until the file is uploaded
     console.log(`uploading ${fileName} to minio S3...`);
-    let upload = await this.upload_s3(destination_folder, file, fileName);
+    let upload = await this.upload_s3( fileName, file,);
     console.log("upload ", upload);
-    return await this.encode(file_dest, file, title, tags, location_place, category_id, zone);
+    return await this.encode(fileName, file, title, tags, location_place, category_id, zone);
     //
   }
 

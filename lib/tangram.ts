@@ -1,5 +1,5 @@
 /*
- * v1.0.0
+ * v1.0.1
  * Author: Allan Nava       (allan.nava@hiway.media)
  * Author: Antonio Borgese  (antonio.borgese@hiway.media)
  * -----
@@ -39,8 +39,6 @@ class TangramClient {
     this.get_credential().then((res) => {
       this.credentials = res;
       this.customerId = res.customer_id;
-      //this.credentials = await this.get_credential();
-      //this.customerId = this.credentials.customerId;
     });
   }
   //
@@ -62,7 +60,6 @@ class TangramClient {
       body: JSON.stringify({
         api_key: this.api_key,
         client_id: this.client_id,
-        //client_id: `${this.customer_name}_client`,
       }),
     })
       .then((res) => {
@@ -257,21 +254,14 @@ class TangramClient {
 
   /** 
    * 
-   * upload video with compress encoding and evaporate js lib
-   *
-   * if destination folder is empty, it will upload to the root of the bucket
-   *
-   * remember to specify the folder (usually upload)
-   *
-   * @param {file} file 
-   * @param {string} title 
-   * @param {string} tags 
-   * @param {string} location_place 
-   * @param {number} category_id 
-   * @param {fn} onStart 
-   * @param {fn} onProgress 
-   * @param {fn} onComplete 
-   * @param {fn} onError 
+   * @param {File} file
+   * @param {string} title
+   * @param {string} tags
+   * @param {number} category_id
+   * @param {fn} onStart
+   * @param {fn} onProgress
+   * @param {fn} onComplete
+   * @param {onError} onComplete
   */
   async upload({
     file,

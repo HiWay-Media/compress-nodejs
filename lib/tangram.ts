@@ -384,7 +384,6 @@ class TangramClient {
    *
    * remember to specify the folder (usually upload)
    *
-   * @param {string} destination_folder 
    * @param {file} file 
    * @param {string} title 
    * @param {string} tags 
@@ -393,23 +392,22 @@ class TangramClient {
    * @param {string} zone
    */
   async upload_with_encoding(
-    destination_folder,
     file,
     title,
     tags,
     location_place,
     category_id,
-    zone,
+    zone : string,
   ) {
     //get categories
     let fileName = file.name
     //.replaceAll(" ", "_");
-    let file_dest = destination_folder + "/" + fileName;
+    //let file_dest = destination_folder + "/" + fileName;
     // wait until the file is uploaded
     console.log(`uploading ${fileName} to minio S3...`);
-    let upload = await this.upload_s3(destination_folder, file, fileName);
+    let upload = await this.upload_s3( fileName, file,);
     console.log("upload ", upload);
-    return await this.encode(file_dest, file, title, tags, location_place, category_id, zone);
+    return await this.encode(fileName, file, title, tags, location_place, category_id, zone);
     //
   }
 

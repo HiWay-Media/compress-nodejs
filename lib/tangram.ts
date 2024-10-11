@@ -205,7 +205,7 @@ class TangramClient {
 
       return {
         "response": "KO",
-        "message": "failed to upload to s3"
+        "message": e
       }
     }
   }

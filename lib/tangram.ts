@@ -1,5 +1,5 @@
 /*
- * v1.0.1
+ * v1.0.2
  * Author: Allan Nava       (allan.nava@hiway.media)
  * Author: Antonio Borgese  (antonio.borgese@hiway.media)
  * -----
@@ -205,7 +205,7 @@ class TangramClient {
 
       return {
         "response": "KO",
-        "message": "failed to upload to s3"
+        "message": e
       }
     }
   }
